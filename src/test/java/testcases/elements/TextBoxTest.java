@@ -2,6 +2,7 @@ package testcases.elements;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -99,5 +100,10 @@ class TextBoxTest extends BaseUiTest {
         emailOutput.shouldHave(Condition.text(email));
         currentAddressOutput.shouldHave(Condition.text(currentAddress));
         permanentAddressOutput.shouldHave(Condition.text(permanentAddress));
+    }
+
+    @AfterEach
+    public void afterEachTest() {
+        closeWebDriver();
     }
 }

@@ -1,12 +1,14 @@
 package testcases.elements;
 
 import org.demoqa.pageobjects.elements.CheckBoxPage;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import testcases.BaseUiTest;
 
 import java.util.List;
 
+import static com.codeborne.selenide.Selenide.closeWebDriver;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Tag("Elements")
@@ -93,5 +95,10 @@ class CheckBoxTest extends BaseUiTest {
         assertThat(checkBoxElementPage.isCheckboxUnchecked("Notes")).isTrue();
         assertThat(checkBoxElementPage.isCheckboxHalfChecked("Home")).isTrue();
         assertThat(checkBoxElementPage.isCheckboxHalfChecked("Desktop")).isTrue();
+    }
+
+    @AfterEach
+    public void afterEachTest() {
+        closeWebDriver();
     }
 }
