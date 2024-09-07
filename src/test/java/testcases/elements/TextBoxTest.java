@@ -128,10 +128,4 @@ class TextBoxTest extends BaseUiTest {
         currentAddressOutput.shouldHave(Condition.text(currentAddress));
         permanentAddressOutput.shouldHave(Condition.text(permanentAddress));
     }
-
-    @AfterEach
-    public void afterEachTest() {
-        takeScreenshotAndAddItToAllureReport();
-        closeWebDriver();
-    }
 }

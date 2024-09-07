@@ -22,14 +22,25 @@ configurations {
 }
 
 dependencies {
+    //Selenide
     api libs.com.codeborne.selenide
+
+    //WebDriverManager
     api libs.io.github.bonigarcia.webdrivermanager
-    implementation libs.org.slf4j
+
+    //Assertj
     implementation libs.org.assertj.assertj.core
+
+    //Junit5
     testImplementation libs.org.junit.jupiter.junit.jupiter.api
     testImplementation libs.org.junit.jupiter.junit.jupiter.params
     testImplementation libs.org.junit.jupiter.engine
-    testImplementation libs.slf4j.simple
+
+    //Log4j 2
+    testImplementation libs.org.apache.logging.log4j
+    testImplementation libs.org.apache.logging.log4j.api
+
+    //Allure
     testImplementation libs.io.qameta.allure.bom
     testImplementation libs.io.qameta.allure.junit5
 

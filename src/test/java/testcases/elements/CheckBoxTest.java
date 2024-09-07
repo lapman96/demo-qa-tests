@@ -7,7 +7,6 @@ import testcases.BaseUiTest;
 
 import java.util.List;
 
-import static com.codeborne.selenide.Selenide.closeWebDriver;
 import static io.qameta.allure.SeverityLevel.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -117,11 +116,5 @@ class CheckBoxTest extends BaseUiTest {
         assertThat(checkBoxElementPage.isCheckboxUnchecked("Notes")).isTrue();
         assertThat(checkBoxElementPage.isCheckboxHalfChecked("Home")).isTrue();
         assertThat(checkBoxElementPage.isCheckboxHalfChecked("Desktop")).isTrue();
-    }
-
-    @AfterEach
-    public void afterEachTest() {
-        takeScreenshotAndAddItToAllureReport();
-        closeWebDriver();
     }
 }
