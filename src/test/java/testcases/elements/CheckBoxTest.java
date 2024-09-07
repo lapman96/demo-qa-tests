@@ -1,21 +1,27 @@
 package testcases.elements;
 
+import io.qameta.allure.*;
 import org.demoqa.pageobjects.elements.CheckBoxPage;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import testcases.BaseUiTest;
 
 import java.util.List;
 
 import static com.codeborne.selenide.Selenide.closeWebDriver;
+import static io.qameta.allure.SeverityLevel.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Tag("Elements")
+@Tags({@Tag("Elements"), @Tag("Checkbox")})
+@Owner("Serhii Lapin")
+@Link(name = "DemoQA - Check Box", url = "https://demoqa.com/checkbox")
 class CheckBoxTest extends BaseUiTest {
 
-    @Tag("P1")
     @Test
+    @Tag("P1")
+    @Epic("Elements")
+    @Feature("Check Box")
+    @DisplayName("Check the ability to expand all checkboxes by clicking on the Expand All button")
+    @Severity(NORMAL)
     void checkTheAbilityToExpandAllCheckboxes() {
         CheckBoxPage checkBoxElementPage = new CheckBoxPage();
         checkBoxElementPage
@@ -29,8 +35,12 @@ class CheckBoxTest extends BaseUiTest {
         assertThat(numberOfVisibleCheckboxes).isEqualTo(17);
     }
 
-    @Tag("P1")
     @Test
+    @Tag("P1")
+    @Epic("Elements")
+    @Feature("Check Box")
+    @DisplayName("Check the ability to collapse all checkboxes by clicking on the Collapse All button")
+    @Severity(NORMAL)
     void checkTheAbilityToCollapseAllCheckboxes() {
         CheckBoxPage checkBoxElementPage = new CheckBoxPage();
 
@@ -46,8 +56,12 @@ class CheckBoxTest extends BaseUiTest {
         assertThat(numberOfVisibleCheckboxes).isEqualTo(1);
     }
 
-    @Tag("P1")
     @Test
+    @Tag("P1")
+    @Epic("Elements")
+    @Feature("Check Box")
+    @DisplayName("Check the ability to tick all checkboxes by clicking on the root checkbox")
+    @Severity(CRITICAL)
     void checkTheAbilityToTickAllCheckboxesByClickingRootCheckbox() {
         List<String> expectedResult = List.of("home", "desktop", "notes", "commands", "documents", "workspace",
                 "react", "angular", "veu", "office", "public", "private", "classified", "general", "downloads",
@@ -61,8 +75,12 @@ class CheckBoxTest extends BaseUiTest {
         assertThat(checkBoxElementPage.getSelectedCheckboxes().texts()).containsAll(expectedResult);
     }
 
-    @Tag("P1")
     @Test
+    @Tag("P1")
+    @Epic("Elements")
+    @Feature("Check Box")
+    @DisplayName("Check the ability to tick all checkboxes inside the folder by clicking on the folder checkbox")
+    @Severity(CRITICAL)
     void checkTheAbilityToTickAllCheckboxesInTheDefinedFolder() {
         List<String> expectedResult = List.of( "desktop", "notes", "commands");
 
@@ -77,8 +95,12 @@ class CheckBoxTest extends BaseUiTest {
         assertThat(checkBoxElementPage.isCheckboxHalfChecked("Home")).isTrue();
     }
 
-    @Tag("P1")
     @Test
+    @Tag("P1")
+    @Epic("Elements")
+    @Feature("Check Box")
+    @DisplayName("Check the ability to untick some checkboxes")
+    @Severity(CRITICAL)
     void checkTheAbilityToUntickSomeCheckboxes() {
         List<String> expectedResult = List.of("commands", "documents","office", "workspace",
                 "react", "angular", "veu", "private", "classified", "general", "downloads",
@@ -99,6 +121,7 @@ class CheckBoxTest extends BaseUiTest {
 
     @AfterEach
     public void afterEachTest() {
+        takeScreenshotAndAddItToAllureReport();
         closeWebDriver();
     }
 }
