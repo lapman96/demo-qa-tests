@@ -52,9 +52,9 @@ public abstract class BaseUiTest {
     }
 
     private static void configureRemoteTestRun() {
-        Configuration.remote = "http://localhost:4444/wd/hub";
+        Configuration.remote = "http://77.237.232.129:4444/wd/hub";
         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
-        desiredCapabilities.setPlatform(Platform.WIN11);
+        desiredCapabilities.setPlatform(Platform.LINUX);
         Configuration.browserCapabilities = desiredCapabilities;
     }
 }
