@@ -1,0 +1,27 @@
+pipeline {
+    agent any
+    environment {
+        ENVIRONMENT = 'prod'
+        BROWSER = 'chrome'
+        TAGS = 'P1'
+    }
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10', daysToKeepStr: '30'))
+    }
+    triggers {
+        cron('0 1 * * *')
+    }
+    stages {
+        stage('Test') {
+            steps {
+                echo "Running tests in the selected environment: ${ENVIRONMENT}, browser: ${BROWSER}, with tags: ${TAGS}"
+                sh "./gradlew test -Denv=${ENVIRONMENT} -Dbrowser=${BROWSER} -Ptags=\"${TAGS}\" -Drun_remotely=true --info"
+            }
+        }
+    }
+    post {
+        always {
+            allure includeProperties: false, jdk: '', results: [[path: 'build/allure-results']]
+        }
+    }
+}
