@@ -36,11 +36,10 @@ class TextBoxTest extends BaseUiTest {
     @Severity(CRITICAL)
     void checkSubmitFullName() {
         String fullName = "Serhii Lapin";
-        open(PAGE_URL);
-        fullNameField.setValue(fullName);
-        submitButton.scrollTo()
-                .click();
-        fullNameOutput.shouldHave(Condition.text(fullName));
+        Allure.step("Open the TextBox page", () -> open(PAGE_URL));
+        Allure.step("Set Full Name field", () -> fullNameField.setValue(fullName));
+        Allure.step("Click Submit button", () -> submitButton.scrollTo().click());
+        Allure.step("Verify Full Name output", () -> fullNameOutput.shouldHave(Condition.text(fullName)));
     }
 
     @Test
@@ -51,11 +50,10 @@ class TextBoxTest extends BaseUiTest {
     @Severity(CRITICAL)
     void checkSubmitValidEmailField() {
         String email = "test@test.com";
-        open(PAGE_URL);
-        emailField.setValue(email);
-        submitButton.scrollTo()
-                .click();
-        emailOutput.shouldHave(Condition.text(email));
+        Allure.step("Open the TextBox page", () -> open(PAGE_URL));
+        Allure.step("Set Email field", () -> emailField.setValue(email));
+        Allure.step("Click Submit button", () -> submitButton.scrollTo().click());
+        Allure.step("Verify Email output", () -> emailOutput.shouldHave(Condition.text(email)));
     }
 
     @ParameterizedTest(name = "Invalid email: {0}")
@@ -67,12 +65,12 @@ class TextBoxTest extends BaseUiTest {
     @CsvFileSource(resources = "/test-data/listOfInvalidEmails.csv")
     @Severity(CRITICAL)
     void checkSubmitInvalidEmailField(String invalidEmail) {
-        open(PAGE_URL);
-        emailField.setValue(invalidEmail);
-        submitButton.scrollTo()
-                .click();
-        emailField.scrollTo()
-                .shouldHave(Condition.attribute("class", "mr-sm-2 field-error form-control"));
+        Allure.step("Open the TextBox page", () -> open(PAGE_URL));
+        Allure.step("Set invalid Email field", () -> emailField.setValue(invalidEmail));
+        Allure.step("Click Submit button", () -> submitButton.scrollTo().click());
+        Allure.step("Verify Email field has error class", () ->
+                emailField.scrollTo().shouldHave(Condition.attribute("class", "mr-sm-2 field-error form-control"))
+        );
     }
 
     @Test
@@ -83,11 +81,12 @@ class TextBoxTest extends BaseUiTest {
     @Severity(CRITICAL)
     void checkSubmitCurrentAddress() {
         String currentAddress = "Budapest, Viola 100, 777";
-        open(PAGE_URL);
-        currentAddressField.setValue(currentAddress);
-        submitButton.scrollTo()
-                .click();
-        currentAddressOutput.shouldHave(Condition.text(currentAddress));
+        Allure.step("Open the TextBox page", () -> open(PAGE_URL));
+        Allure.step("Set Current Address field", () -> currentAddressField.setValue(currentAddress));
+        Allure.step("Click Submit button", () -> submitButton.scrollTo().click());
+        Allure.step("Verify Current Address output", () ->
+                currentAddressOutput.shouldHave(Condition.text(currentAddress))
+        );
     }
 
     @Test
@@ -98,11 +97,12 @@ class TextBoxTest extends BaseUiTest {
     @Severity(CRITICAL)
     void checkSubmitPermanentAddress() {
         String permanentAddress = "Budapest, Viola 100, 777";
-        open(PAGE_URL);
-        permanentAddressField.setValue(permanentAddress);
-        submitButton.scrollTo()
-                .click();
-        permanentAddressOutput.shouldHave(Condition.text(permanentAddress));
+        Allure.step("Open the TextBox page", () -> open(PAGE_URL));
+        Allure.step("Set Permanent Address field", () -> permanentAddressField.setValue(permanentAddress));
+        Allure.step("Click Submit button", () -> submitButton.scrollTo().click());
+        Allure.step("Verify Permanent Address output", () ->
+                permanentAddressOutput.shouldHave(Condition.text(permanentAddress))
+        );
     }
 
     @Test
@@ -116,16 +116,19 @@ class TextBoxTest extends BaseUiTest {
         String email = "test@test.com";
         String currentAddress = "Budapest, Viola 100, 777";
         String permanentAddress = "Budapest, Viola 150, 1000";
-        open(PAGE_URL);
-        fullNameField.setValue(fullName);
-        emailField.setValue(email);
-        currentAddressField.setValue(currentAddress);
-        permanentAddressField.setValue(permanentAddress);
-        submitButton.scrollTo()
-                .click();
-        fullNameOutput.shouldHave(Condition.text(fullName));
-        emailOutput.shouldHave(Condition.text(email));
-        currentAddressOutput.shouldHave(Condition.text(currentAddress));
-        permanentAddressOutput.shouldHave(Condition.text(permanentAddress));
+        Allure.step("Open the TextBox page", () -> open(PAGE_URL));
+        Allure.step("Set Full Name field", () -> fullNameField.setValue(fullName));
+        Allure.step("Set Email field", () -> emailField.setValue(email));
+        Allure.step("Set Current Address field", () -> currentAddressField.setValue(currentAddress));
+        Allure.step("Set Permanent Address field", () -> permanentAddressField.setValue(permanentAddress));
+        Allure.step("Click Submit button", () -> submitButton.scrollTo().click());
+        Allure.step("Verify Full Name output", () -> fullNameOutput.shouldHave(Condition.text(fullName)));
+        Allure.step("Verify Email output", () -> emailOutput.shouldHave(Condition.text(email)));
+        Allure.step("Verify Current Address output", () ->
+                currentAddressOutput.shouldHave(Condition.text(currentAddress))
+        );
+        Allure.step("Verify Permanent Address output", () ->
+                permanentAddressOutput.shouldHave(Condition.text(permanentAddress))
+        );
     }
 }

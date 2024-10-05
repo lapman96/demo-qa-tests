@@ -23,15 +23,13 @@ class CheckBoxTest extends BaseUiTest {
     @Severity(NORMAL)
     void checkTheAbilityToExpandAllCheckboxes() {
         CheckBoxPage checkBoxElementPage = new CheckBoxPage();
-        checkBoxElementPage
-                .openPage()
-                .clickOnTheExpandAllCheckboxesButton();
 
-        int numberOfVisibleCheckboxes = checkBoxElementPage
-                .getVisibleCheckboxes()
-                .size();
-
-        assertThat(numberOfVisibleCheckboxes).isEqualTo(17);
+        Allure.step("Open the CheckBox page", checkBoxElementPage::openPage);
+        Allure.step("Click on the Expand All Checkboxes button", checkBoxElementPage::clickOnTheExpandAllCheckboxesButton);
+        Allure.step("Verify the number of visible checkboxes", () -> {
+            int numberOfVisibleCheckboxes = checkBoxElementPage.getVisibleCheckboxes().size();
+            assertThat(numberOfVisibleCheckboxes).isEqualTo(17);
+        });
     }
 
     @Test
@@ -43,16 +41,13 @@ class CheckBoxTest extends BaseUiTest {
     void checkTheAbilityToCollapseAllCheckboxes() {
         CheckBoxPage checkBoxElementPage = new CheckBoxPage();
 
-        checkBoxElementPage
-                .openPage()
-                .clickOnTheExpandAllCheckboxesButton()
-                .clickOnTheCollapseAllCheckboxesButton();
-
-        int numberOfVisibleCheckboxes = checkBoxElementPage
-                .getVisibleCheckboxes()
-                .size();
-
-        assertThat(numberOfVisibleCheckboxes).isEqualTo(1);
+        Allure.step("Open the CheckBox page", checkBoxElementPage::openPage);
+        Allure.step("Click on the Expand All Checkboxes button", checkBoxElementPage::clickOnTheExpandAllCheckboxesButton);
+        Allure.step("Click on the Collapse All Checkboxes button", checkBoxElementPage::clickOnTheCollapseAllCheckboxesButton);
+        Allure.step("Verify the number of visible checkboxes", () -> {
+            int numberOfVisibleCheckboxes = checkBoxElementPage.getVisibleCheckboxes().size();
+            assertThat(numberOfVisibleCheckboxes).isEqualTo(1);
+        });
     }
 
     @Test
@@ -67,11 +62,12 @@ class CheckBoxTest extends BaseUiTest {
                 "wordFile", "excelFile");
 
         CheckBoxPage checkBoxElementPage = new CheckBoxPage();
-        checkBoxElementPage
-                .openPage()
-                .tickTheCheckboxByName("Home");
 
-        assertThat(checkBoxElementPage.getSelectedCheckboxes().texts()).containsAll(expectedResult);
+        Allure.step("Open the CheckBox page", checkBoxElementPage::openPage);
+        Allure.step("Tick the root checkbox", () -> checkBoxElementPage.tickTheCheckboxByName("Home"));
+        Allure.step("Verify the selected checkboxes", () -> {
+            assertThat(checkBoxElementPage.getSelectedCheckboxes().texts()).containsAll(expectedResult);
+        });
     }
 
     @Test
@@ -81,17 +77,17 @@ class CheckBoxTest extends BaseUiTest {
     @DisplayName("Check the ability to tick all checkboxes inside the folder by clicking on the folder checkbox")
     @Severity(CRITICAL)
     void checkTheAbilityToTickAllCheckboxesInTheDefinedFolder() {
-        List<String> expectedResult = List.of( "desktop", "notes", "commands");
+        List<String> expectedResult = List.of("desktop", "notes", "commands");
 
         CheckBoxPage checkBoxElementPage = new CheckBoxPage();
 
-        checkBoxElementPage
-                .openPage()
-                .clickOnTheExpandAllCheckboxesButton()
-                .tickTheCheckboxByName("Desktop");
-
-        assertThat(checkBoxElementPage.getSelectedCheckboxes().texts()).containsAll(expectedResult);
-        assertThat(checkBoxElementPage.isCheckboxHalfChecked("Home")).isTrue();
+        Allure.step("Open the CheckBox page", checkBoxElementPage::openPage);
+        Allure.step("Click on the Expand All Checkboxes button", checkBoxElementPage::clickOnTheExpandAllCheckboxesButton);
+        Allure.step("Tick the folder checkbox", () -> checkBoxElementPage.tickTheCheckboxByName("Desktop"));
+        Allure.step("Verify the selected checkboxes", () -> {
+            assertThat(checkBoxElementPage.getSelectedCheckboxes().texts()).containsAll(expectedResult);
+            assertThat(checkBoxElementPage.isCheckboxHalfChecked("Home")).isTrue();
+        });
     }
 
     @Test
@@ -101,20 +97,21 @@ class CheckBoxTest extends BaseUiTest {
     @DisplayName("Check the ability to untick some checkboxes")
     @Severity(CRITICAL)
     void checkTheAbilityToUntickSomeCheckboxes() {
-        List<String> expectedResult = List.of("commands", "documents","office", "workspace",
+        List<String> expectedResult = List.of("commands", "documents", "office", "workspace",
                 "react", "angular", "veu", "private", "classified", "general", "downloads",
                 "wordFile", "excelFile");
 
         CheckBoxPage checkBoxElementPage = new CheckBoxPage();
-        checkBoxElementPage
-                .openPage()
-                .clickOnTheExpandAllCheckboxesButton()
-                .tickTheCheckboxByName("Home")
-                .untickTheCheckboxByName("Notes");
 
-        assertThat(checkBoxElementPage.getSelectedCheckboxes().texts()).containsAll(expectedResult);
-        assertThat(checkBoxElementPage.isCheckboxUnchecked("Notes")).isTrue();
-        assertThat(checkBoxElementPage.isCheckboxHalfChecked("Home")).isTrue();
-        assertThat(checkBoxElementPage.isCheckboxHalfChecked("Desktop")).isTrue();
+        Allure.step("Open the CheckBox page", checkBoxElementPage::openPage);
+        Allure.step("Click on the Expand All Checkboxes button", checkBoxElementPage::clickOnTheExpandAllCheckboxesButton);
+        Allure.step("Tick the root checkbox", () -> checkBoxElementPage.tickTheCheckboxByName("Home"));
+        Allure.step("Untick the 'Notes' checkbox", () -> checkBoxElementPage.untickTheCheckboxByName("Notes"));
+        Allure.step("Verify the selected checkboxes", () -> {
+            assertThat(checkBoxElementPage.getSelectedCheckboxes().texts()).containsAll(expectedResult);
+            assertThat(checkBoxElementPage.isCheckboxUnchecked("Notes")).isTrue();
+            assertThat(checkBoxElementPage.isCheckboxHalfChecked("Home")).isTrue();
+            assertThat(checkBoxElementPage.isCheckboxHalfChecked("Desktop")).isTrue();
+        });
     }
 }
